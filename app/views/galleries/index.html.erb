@@ -5,7 +5,7 @@
         Media Gallery
       </h1>
       <% if current_director.present? %>
-        <%= link_to 'Add images to Gallery', admin_galleries_path, class: "inline-block px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg transition-colors" %>
+        <%= link_to 'Add images to Gallery', admin_galleries_path, class: "inline-block rounded-lg border border-white px-6 py-3 bg-purple-700 text-white font-semibold transition-colors hover:border-emerald-600 hover:bg-emerald-600 hover:text-white" %>
       <% end %>
     </div>
 
@@ -30,7 +30,7 @@
               <% end %>
               
               <div class="p-4">
-                <h2 class="text-xl font-semibold text-gray-900 mb-2 group-hover:text-red-600">
+                <h2 class="text-xl font-semibold text-gray-900 mb-2 group-hover:text-purple-600">
                   <%= gallery.title %>
                 </h2>
                 <% if gallery.description.present? %>

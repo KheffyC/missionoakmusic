@@ -1,26 +1,26 @@
 <div class="min-h-[90vh] px-4 py-8 md:py-12">
   <div class="mx-auto w-full max-w-6xl space-y-10">
     <div class="space-y-4">
-      <h1 class="text-center text-3xl md:text-4xl font-extrabold tracking-tight text-yellow-200">Student Forms</h1>
+      <h1 class="text-center text-3xl md:text-4xl font-extrabold tracking-tight text-white">Student Forms</h1>
       <p class="mx-auto max-w-3xl text-center text-sm md:text-base text-slate-200/90">
         Quick access to rehearsal and performance request forms, handbook agreements, and additional documents.
       </p>
 
       <% if current_director.present? %>
         <div class="flex justify-center pt-2">
-          <%= link_to 'Upload New PDF', new_amazon_pdf_path, class: 'inline-flex items-center justify-center rounded-lg border border-yellow-400 bg-yellow-500/20 px-6 py-3 text-base font-semibold text-yellow-100 shadow-lg shadow-yellow-500/20 transition hover:bg-yellow-400 hover:text-slate-900' %>
+          <%= link_to 'Upload New PDF', new_amazon_pdf_path, class: 'inline-flex items-center justify-center rounded-lg border border-white bg-purple-700 px-6 py-3 text-base font-semibold text-white shadow-lg shadow-purple-900/20 transition hover:border-emerald-600 hover:bg-emerald-600 hover:text-white' %>
         </div>
       <% end %>
     </div>
 
     <section class="space-y-5 rounded-3xl border border-white/10 bg-slate-950/35 p-4 md:p-6">
-      <h2 class="text-center text-2xl md:text-3xl font-bold tracking-tight text-yellow-300">Absence Request Forms</h2>
+      <h2 class="text-center text-2xl md:text-3xl font-bold tracking-tight text-white">Absence Request Forms</h2>
       <div class="grid grid-cols-1 gap-5 lg:grid-cols-2">
-        <article class="rounded-2xl border border-amber-300/45 bg-gradient-to-br from-amber-500/20 via-slate-900/85 to-slate-950/90 p-5 md:p-6 text-white shadow-xl shadow-amber-500/25 ring-1 ring-amber-200/20 backdrop-blur-sm">
+        <article class="rounded-2xl border border-white/45 bg-gradient-to-br from-white/20 via-slate-900/85 to-slate-950/90 p-5 md:p-6 text-white shadow-xl shadow-white/25 ring-1 ring-white/20 backdrop-blur-sm">
           <div class="space-y-3">
             <div class="space-y-1">
               <h3 class="text-2xl font-bold">Night Rehearsal</h3>
-              <p class="inline-flex rounded-full border border-rose-400/40 bg-rose-500/15 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-rose-200">Not all requests may be excused</p>
+              <p class="inline-flex rounded-full border border-purple-400/40 bg-purple-500/15 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-purple-200">Not all requests may be excused</p>
             </div>
             <p class="text-sm md:text-base leading-relaxed text-slate-200">
               Please refer to our attendance policy for additional clarification. Requests must be submitted 1 hour prior to the scheduled rehearsal. Students with jobs need to communicate their school schedule with their employer. Academics and school events come first.
@@ -35,7 +35,7 @@
           <div class="space-y-3">
             <div class="space-y-1">
               <h3 class="text-2xl font-bold">Performances</h3>
-              <p class="inline-flex rounded-full border border-rose-400/40 bg-rose-500/15 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-rose-200">Not all requests may be excused</p>
+              <p class="inline-flex rounded-full border border-purple-400/40 bg-purple-500/15 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-purple-200">Not all requests may be excused</p>
             </div>
             <p class="text-sm md:text-base leading-relaxed text-slate-200">
               Please refer to our attendance policy for additional clarification. Requests must be submitted 2 weeks prior to the scheduled performance. Students with jobs need to communicate their school schedule with their employer. Academics and school events come first.
@@ -49,7 +49,7 @@
     </section>
 
     <section class="space-y-5 rounded-3xl border border-white/10 bg-slate-950/35 p-4 md:p-6">
-      <h2 class="text-center text-2xl md:text-3xl font-bold tracking-tight text-yellow-300">Handbook Contract</h2>
+      <h2 class="text-center text-2xl md:text-3xl font-bold tracking-tight text-white">Handbook Contract</h2>
       <div class="mx-auto max-w-3xl">
         <article class="rounded-2xl border border-emerald-300/45 bg-gradient-to-br from-emerald-500/20 via-slate-900/85 to-slate-950/90 p-5 md:p-6 text-white shadow-xl shadow-emerald-500/25 ring-1 ring-emerald-200/20 backdrop-blur-sm">
           <div class="space-y-3">
@@ -68,10 +68,10 @@
     <% if @amazon_pdfs.present? %>
       <% @amazon_pdfs.group_by { |g| g.type_of_pdf_group }.each do |group, pdfs| %>
         <section class="space-y-5 rounded-3xl border border-white/10 bg-slate-950/35 p-4 md:p-6">
-          <h2 class="text-center text-2xl md:text-3xl font-bold tracking-tight text-yellow-300"><%= group.to_s.upcase %></h2>
+          <h2 class="text-center text-2xl md:text-3xl font-bold tracking-tight text-white"><%= group.to_s.upcase %></h2>
           <div class="grid grid-cols-1 gap-5 lg:grid-cols-2">
             <% pdfs.each do |pdf| %>
-              <article class="rounded-2xl border border-yellow-300/45 bg-gradient-to-br from-yellow-500/20 via-slate-900/85 to-slate-950/90 p-5 md:p-6 text-white shadow-xl shadow-yellow-500/25 ring-1 ring-yellow-200/20 backdrop-blur-sm">
+              <article class="rounded-2xl border border-white/45 bg-gradient-to-br from-white/20 via-slate-900/85 to-slate-950/90 p-5 md:p-6 text-white shadow-xl shadow-white/25 ring-1 ring-white/20 backdrop-blur-sm">
                 <div class="space-y-3">
                   <h3 class="text-xl md:text-2xl font-bold"><%= pdf.name %></h3>
                   <p class="text-sm md:text-base leading-relaxed text-slate-200">
@@ -80,7 +80,7 @@
                   <div class="flex flex-wrap gap-3 pt-2">
                     <%= link_to 'Preview', pdf.url, target: '_blank', class: 'inline-flex items-center justify-center rounded-lg bg-sky-600 px-4 py-2 text-sm font-bold text-white transition hover:bg-sky-500' %>
                     <% if current_director.present? %>
-                      <%= link_to 'Delete', amazon_pdf_path(pdf.id), data: { turbo_method: :delete, turbo_confirm: 'Are you sure you want to remove this PDF?' }, class: 'inline-flex items-center justify-center rounded-lg bg-rose-600 px-4 py-2 text-sm font-bold text-white transition hover:bg-rose-500' %>
+                      <%= link_to 'Delete', amazon_pdf_path(pdf.id), data: { turbo_method: :delete, turbo_confirm: 'Are you sure you want to remove this PDF?' }, class: 'inline-flex items-center justify-center rounded-lg bg-purple-600 px-4 py-2 text-sm font-bold text-white transition hover:bg-purple-500' %>
                     <% end %>
                   </div>
                 </div>
