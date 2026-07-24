@@ -34,8 +34,8 @@
         >
           <div class="flex flex-col items-center justify-center gap-3 text-center">
             <div>
-              <p class="text-sm font-semibold text-white">Drag and drop your PDF here</p>
-              <p class="text-xs text-white/90">or use the file picker button</p>
+              <p class="text-sm font-semibold text-purple-700">Drag and drop your PDF here</p>
+              <p class="text-xs text-purple-700/90">or use the file picker button</p>
             </div>
             <%= form.file_field :pdf,
               accept: 'application/pdf',
@@ -44,8 +44,8 @@
               x_ref: "pdfInput",
               "@change": "selectedFileName = $event.target.files?.[0]?.name || ''"
             %>
-            <label for="amazon_pdf_pdf" class="inline-flex cursor-pointer items-center justify-center rounded-lg bg-sky-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-400/70">Choose File</label>
-            <p class="text-xs font-medium text-white" x-text="selectedFileName || 'No file chosen'"></p>
+            <label for="amazon_pdf_pdf" class="inline-flex cursor-pointer items-center justify-center rounded-lg bg-purple-700 px-4 py-2 text-sm font-semibold text-white transition hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400/70">Choose File</label>
+            <p class="text-xs font-medium text-purple-700" x-text="selectedFileName || 'No file chosen'"></p>
           </div>
         </div>
       </div>
