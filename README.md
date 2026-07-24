@@ -1,46 +1,79 @@
-# Tulare Union Music Website
+# Music Department Website
 
-## About 
-This project was designed and created for Tulare Union Marching Band. Though this is an ongoing project for the next few years, the basis of it is a hub of information for all students enrolled in the music programs at Tulare Union. All Itineraries, Syllabus, Fundraisers, and Contact information can be readily found for all parents and students alike. 
+## Overview
+This is a Rails-based website for a school music program. It provides a public-facing hub for schedules, program information, documents, contact details, fundraising links, galleries, and admin-managed content.
 
-Features soon to come include: 
-<ul>
-  <li>Practice Hub - A place to follow along to onscreen music of the current selections for the season.</li>
-  <li>Fundraiser Links and Events</li>
-  <li>Booster Page - A page dedicated to all the parents that endlessly give support to our students</li>
-  <li>Donation Page - Linked directly with Stripe (pending booster approval)</li>
-</ul>
+## Features
+- Program and school landing pages
+- Shared hero sections with page-specific image overrides
+- Embedded calendars and document links
+- PDF uploads for program-specific resources
+- Admin editing through Administrate
+- Authenticated admin access through Devise
+- Contact form protection with Invisible Captcha
+- Active Storage uploads backed by Amazon S3 in production
 
-## Requirements
-This project currently requires:
+## Stack
+- Rails 7.0.x
+- Ruby 3.2.8
+- PostgreSQL
+- Tailwind CSS
+- Turbo and Stimulus
+- Importmap for JavaScript
+- Simple Form
+- Administrate
+- Devise
+- aws-sdk-s3
 
-* Rails 7.1
-* Ruby 3.1 or newer
-* PostgreSQL
-* Node 16.14+ or 18+, and Yarn 1.x
+## Local Setup
+1. Install Ruby 3.2.8 and PostgreSQL.
+2. Install dependencies with `bundle install`.
+3. Set up your database configuration in `config/database.yml` or via `DATABASE_URL`.
+4. Run the initial setup:
 
-A .devcontainer is included with the project if you are running Docker locally on your machine and have devcontainers installed on VSCode. This is a quick way to run all necessary requirements and does not require you to have Rails or Ruby installed on your local machine. 
+```bash
+bin/rails db:create db:migrate db:seed
+```
 
-### Database creation
-Please ensure that in database.yml you configure username and password to match the postgres default username/password
+5. Start the app in development:
 
-## Action Mailer 
-In order for Action Mailer to be configured properly, please follow the steps to include smtp settings for gmail or your chosen provider. This will include a passkey that will need to be saved in Rails.credentials where it is protected with a Master.key
+```bash
+./bin/dev
+```
 
-### Deployment 
-** This app is currently deployed on Hatchbox.io using Digital Ocean as its provider.
+`bin/dev` runs the Rails server and Tailwind watcher together.
 
-Once the repo is cloned onto your machine, simply build your container using the dockerfile included in the .devcontainer folder
+## Production Deployment
+This app can be deployed to any Rails-capable host that supports PostgreSQL, background file storage, and environment variables. Hatchbox, Render, Fly.io, Heroku, and similar platforms should all work with the same basic setup.
 
-type ./bin/dev to begin the project. 
+Before deploying, make sure the following are configured:
 
-## What is included? 
+- `RAILS_MASTER_KEY` or `config/master.key`
+- Database credentials or `DATABASE_URL`
+- Amazon S3 credentials for Active Storage
+- Optional Stripe values if donations are enabled
+- Mailer SMTP settings if email delivery is used in production
+- `RAILS_LOG_TO_STDOUT=1`
+- `RAILS_SERVE_STATIC_FILES=1` if your host expects Rails to serve public assets
 
-* Simple Form 
-* Invisible Captcha - Honey Pot for Bots submitting your contact form
-* aws-sdk-s3 - Configured in Rails.credentials with AWS secrets
-* PostgreSQL
-* Importmaps for JS
-* Tailwind for styling 
-* Administrate Gem for user friendly admin functions
-* Devise - User Authentication for Admin and Practice sessions
+Recommended deploy steps:
+
+```bash
+bin/rails assets:precompile
+bin/rails db:migrate
+```
+
+If your host builds from scratch, run bundle install, precompile assets, and migrate the database as part of the release process.
+
+## Required Credentials and Environment Variables
+This application reads some settings from Rails credentials or environment variables:
+
+- AWS S3: `aws.access_key_id`, `aws.secret_access_key`
+- Stripe: `STRIPE_PK`, `STRIPE_PID`, `STRIPE_BID` or the matching Rails credentials entries
+- Rails master key: `RAILS_MASTER_KEY`
+- Database: `DATABASE_URL` or the values in `config/database.yml`
+
+## Notes
+- Production Active Storage is configured to use S3.
+- Images entered as bare filenames should point to files in `app/assets/images`.
+- The admin area is designed for site operators to manage pages, programs, schools, galleries, and PDFs without editing code.
