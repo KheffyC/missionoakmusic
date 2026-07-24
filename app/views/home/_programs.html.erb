@@ -14,7 +14,10 @@
               <article class="relative overflow-hidden rounded-2xl bg-black shadow-[0_14px_30px_rgba(0,0,0,0.35)] transition duration-300 group-hover:-translate-y-1 group-hover:shadow-[0_22px_45px_rgba(88,28,135,0.35)]">
                 <div class="aspect-[4/5] w-full overflow-hidden sm:aspect-[3/4] lg:aspect-[5/4]">
                   <%= image_tag(
-                    (program.main_gallery_image_url&.strip.presence || @school.default_image),
+                    resolve_image_src(
+                      program.main_gallery_image_url&.strip.presence,
+                      fallback: @school.default_image.to_s.strip.presence || 'default-hero.jpg'
+                    ),
                     class: 'h-full w-full object-cover transition duration-500 group-hover:scale-105'
                   ) %>
                 </div>
@@ -39,7 +42,10 @@
             <article class="relative overflow-hidden rounded-2xl bg-black shadow-[0_14px_30px_rgba(0,0,0,0.35)] transition duration-300 group-hover:-translate-y-1 group-hover:shadow-[0_22px_45px_rgba(88,28,135,0.35)]">
               <div class="aspect-[4/5] w-full overflow-hidden sm:aspect-[3/4] lg:aspect-[5/4]">
                 <%= image_tag(
-                  (program.main_gallery_image_url&.strip.presence || @school.default_image),
+                  resolve_image_src(
+                    program.main_gallery_image_url&.strip.presence,
+                    fallback: @school.default_image.to_s.strip.presence || 'default-hero.jpg'
+                  ),
                   class: 'h-full w-full object-cover transition duration-500 group-hover:scale-105'
                 ) %>
               </div>

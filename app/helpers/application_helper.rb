@@ -12,14 +12,23 @@ module ApplicationHelper
 		end
 	end
 
-	def resolve_image_src(source)
+	def resolve_image_src(source, fallback: "default-hero.jpg")
 		normalized = source.to_s.strip
-		return if normalized.blank?
+		fallback_normalized = fallback.to_s.strip.presence
+
+		if normalized.blank?
+			return resolve_image_src(fallback_normalized, fallback: nil) if fallback_normalized.present?
+			return
+		end
 
 		return normalized if normalized.match?(%r{\A(?:https?:)?//}) || normalized.start_with?("/", "data:")
 
 		image_path(normalized)
-	rescue Sprockets::Rails::Helper::AssetNotFound
-		normalized
+	rescue StandardError
+		if fallback_normalized.present? && fallback_normalized != normalized
+			return resolve_image_src(fallback_normalized, fallback: nil)
+		end
+
+		"/#{normalized}"
 	end
 end
