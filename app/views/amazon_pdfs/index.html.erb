@@ -76,11 +76,18 @@
 
                   <div class="flex flex-1 flex-col justify-between gap-4 p-5">
                     <div class="space-y-3">
+                      <div class="flex flex-wrap items-center gap-2">
+                        <% if pdf.linked_document? %>
+                          <span class="inline-flex rounded-full border border-emerald-300/40 bg-emerald-500/15 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-emerald-200">Google Doc</span>
+                        <% else %>
+                          <span class="inline-flex rounded-full border border-white/20 bg-white/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-white/70">PDF</span>
+                        <% end %>
+                      </div>
                       <%= link_to pdf.url, target: '_blank', class: 'inline-flex items-center gap-2 rounded-xl border border-white/40 bg-white px-4 py-3 text-sm font-semibold text-neutral-950 transition hover:bg-white' do %>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-4 w-4">
                           <path d="M10 3.75c-4.556 0-8.26 3.07-9.5 7.25 1.24 4.18 4.944 7.25 9.5 7.25s8.26-3.07 9.5-7.25c-1.24-4.18-4.944-7.25-9.5-7.25zM10 15a3.5 3.5 0 110-7 3.5 3.5 0 010 7z" />
                         </svg>
-                        Preview PDF
+                        <%= pdf.linked_document? ? 'Preview Google Doc' : 'Preview PDF' %>
                       <% end %>
                     </div>
 

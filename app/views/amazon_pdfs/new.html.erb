@@ -21,32 +21,86 @@
       <p class="mt-2 text-sm md:text-base text-slate-200/90">Add a document for your program and organize it so families can find it quickly.</p>
     </div>
 
+    <% default_source_mode = params.dig(:amazon_pdf, :source_mode).presence || (@amazon_pdf.document_url.present? ? 'link' : 'upload') %>
     <%= simple_form_for @amazon_pdf, url: amazon_pdfs_path, method: :post, html: { class: "rounded-2xl border border-white/25 bg-slate-900/55 shadow-2xl backdrop-blur-sm p-5 md:p-8 text-white space-y-6", autocomplete: 'off' } do |form| %>
-      <div>
-        <%= form.label :pdf, 'Select PDF File', class: "block text-sm font-semibold uppercase tracking-wide text-white mb-2" %>
-        <div
-          @dragover.prevent="isDragging = true"
-          @dragenter.prevent="isDragging = true"
-          @dragleave.prevent="isDragging = false"
-          @drop.prevent="handleDrop($event)"
-          :class="isDragging ? 'border-white bg-white/95 ring-2 ring-white/70' : 'border-white/80 bg-white/95'"
-          class="rounded-xl border-2 border-dashed p-4 md:p-5 transition text-center"
-        >
-          <div class="flex flex-col items-center justify-center gap-3 text-center">
-            <div>
-              <p class="text-sm font-semibold text-purple-700">Drag and drop your PDF here</p>
-              <p class="text-xs text-purple-700/90">or use the file picker button</p>
+      <div x-data="{
+        sourceType: '<%= default_source_mode %>',
+        show_date: false,
+        isDragging: false,
+        selectedFileName: '',
+        setSource(type) {
+          this.sourceType = type;
+          if (type === 'link') {
+            this.selectedFileName = '';
+            if (this.$refs.pdfInput) this.$refs.pdfInput.value = '';
+          }
+          if (this.$refs.sourceMode) this.$refs.sourceMode.value = type;
+        },
+        setFiles(files) {
+          if (!files || !files.length) return;
+          this.$refs.pdfInput.files = files;
+          this.selectedFileName = files[0].name;
+        },
+        handleDrop(event) {
+          this.isDragging = false;
+          this.setFiles(event.dataTransfer.files);
+        }
+      }">
+        <%= hidden_field_tag 'amazon_pdf[source_mode]', default_source_mode, 'x-ref': 'sourceMode' %>
+
+        <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+          <button
+            type="button"
+            @click="setSource('upload')"
+            :class="sourceType === 'upload' ? 'border-purple-500 bg-purple-600 text-white' : 'border-white/20 bg-white/10 text-white/80 hover:bg-white/15'"
+            class="rounded-xl border px-4 py-3 text-sm font-semibold transition"
+          >
+            Upload PDF
+          </button>
+          <button
+            type="button"
+            @click="setSource('link')"
+            :class="sourceType === 'link' ? 'border-emerald-500 bg-emerald-600 text-white' : 'border-white/20 bg-white/10 text-white/80 hover:bg-white/15'"
+            class="rounded-xl border px-4 py-3 text-sm font-semibold transition"
+          >
+            Link Google Doc
+          </button>
+        </div>
+
+        <div x-show="sourceType === 'upload'" x-cloak>
+          <%= form.label :pdf, 'Select PDF File', class: "block text-sm font-semibold uppercase tracking-wide text-white mb-2" %>
+          <div
+            @dragover.prevent="isDragging = true"
+            @dragenter.prevent="isDragging = true"
+            @dragleave.prevent="isDragging = false"
+            @drop.prevent="handleDrop($event)"
+            :class="isDragging ? 'border-white bg-white/95 ring-2 ring-white/70' : 'border-white/80 bg-white/95'"
+            class="rounded-xl border-2 border-dashed p-4 md:p-5 transition text-center"
+          >
+            <div class="flex flex-col items-center justify-center gap-3 text-center">
+              <div>
+                <p class="text-sm font-semibold text-purple-700">Drag and drop your PDF here</p>
+                <p class="text-xs text-purple-700/90">or use the file picker button</p>
+              </div>
+              <%= form.file_field :pdf,
+                accept: 'application/pdf',
+                id: 'amazon_pdf_pdf',
+                class: "hidden",
+                'x-ref': "pdfInput",
+                "@change": "selectedFileName = $event.target.files?.[0]?.name || ''"
+              %>
+              <label for="amazon_pdf_pdf" class="inline-flex cursor-pointer items-center justify-center rounded-lg bg-purple-700 px-4 py-2 text-sm font-semibold text-white transition hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400/70">Choose File</label>
+              <p class="text-xs font-medium text-purple-700" x-text="selectedFileName || 'No file chosen'"></p>
             </div>
-            <%= form.file_field :pdf,
-              accept: 'application/pdf',
-              id: 'amazon_pdf_pdf',
-              class: "hidden",
-              x_ref: "pdfInput",
-              "@change": "selectedFileName = $event.target.files?.[0]?.name || ''"
-            %>
-            <label for="amazon_pdf_pdf" class="inline-flex cursor-pointer items-center justify-center rounded-lg bg-purple-700 px-4 py-2 text-sm font-semibold text-white transition hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400/70">Choose File</label>
-            <p class="text-xs font-medium text-purple-700" x-text="selectedFileName || 'No file chosen'"></p>
           </div>
+        </div>
+
+        <div x-show="sourceType === 'link'" x-cloak>
+          <%= form.label :document_url, 'Google Doc URL', class: 'block text-sm font-semibold uppercase tracking-wide text-white mb-2' %>
+          <%= form.url_field :document_url,
+            placeholder: 'https://docs.google.com/...',
+            class: 'w-full rounded-xl border border-white/80 bg-white px-4 py-3 text-slate-800 shadow-sm focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/30' %>
+          <p class="mt-2 text-xs text-slate-200/90">Paste a shareable Google Doc or Drive link. This will be used instead of uploading a PDF.</p>
         </div>
       </div>
 

@@ -74,11 +74,18 @@
               <article class="rounded-2xl border border-white/45 bg-gradient-to-br from-white/20 via-slate-900/85 to-slate-950/90 p-5 md:p-6 text-white shadow-xl shadow-white/25 ring-1 ring-white/20 backdrop-blur-sm">
                 <div class="space-y-3">
                   <h3 class="text-xl md:text-2xl font-bold"><%= pdf.name %></h3>
+                  <div>
+                    <% if pdf.linked_document? %>
+                      <span class="inline-flex rounded-full border border-emerald-300/40 bg-emerald-500/15 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-emerald-200">Google Doc</span>
+                    <% else %>
+                      <span class="inline-flex rounded-full border border-white/20 bg-white/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-white/70">PDF</span>
+                    <% end %>
+                  </div>
                   <p class="text-sm md:text-base leading-relaxed text-slate-200">
                     Read through the following document and choose the assignment to complete. Assignment should be turned in one week after the date of the performance.
                   </p>
                   <div class="flex flex-wrap gap-3 pt-2">
-                    <%= link_to 'Preview', pdf.url, target: '_blank', class: 'inline-flex items-center justify-center rounded-lg bg-sky-600 px-4 py-2 text-sm font-bold text-white transition hover:bg-sky-500' %>
+                    <%= link_to(pdf.linked_document? ? 'Preview Google Doc' : 'Preview PDF', pdf.url, target: '_blank', class: 'inline-flex items-center justify-center rounded-lg bg-sky-600 px-4 py-2 text-sm font-bold text-white transition hover:bg-sky-500') %>
                     <% if current_director.present? %>
                       <%= link_to 'Delete', amazon_pdf_path(pdf.id), data: { turbo_method: :delete, turbo_confirm: 'Are you sure you want to remove this PDF?' }, class: 'inline-flex items-center justify-center rounded-lg bg-purple-600 px-4 py-2 text-sm font-bold text-white transition hover:bg-purple-500' %>
                     <% end %>

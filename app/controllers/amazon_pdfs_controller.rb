@@ -37,21 +37,26 @@ class AmazonPdfsController < ApplicationController
 
   def update
     if @amazon_pdf
-      @amazon_pdf.update(amazon_pdf_params)
-      flash[:notice] = "PDF was successfully updated."
-    else
-      flash[:alert] = "PDF could not be updated."
-    end
+      apply_document_source(@amazon_pdf, amazon_pdf_params)
 
-    redirect_to action: :index
+      if @amazon_pdf.update(amazon_pdf_params.except(:pdf, :source_mode))
+        @amazon_pdf.pdf.purge if amazon_pdf_params[:source_mode] == 'link' && @amazon_pdf.pdf.attached?
+        redirect_to amazon_pdfs_path, notice: "PDF was successfully updated."
+      else
+        flash.now[:alert] = @amazon_pdf.errors.full_messages.to_sentence.presence || "PDF could not be updated."
+        render :edit, status: :unprocessable_entity
+      end
+    else
+      flash.now[:alert] = "PDF could not be updated."
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   def create
-    ap amazon_pdf_params
     @amazon_pdf = AmazonPdf.new.tap do |amazon_pdf|
       amazon_pdf.name = amazon_pdf_params[:name]
       amazon_pdf.type_of_pdf_group = amazon_pdf_params[:type_of_pdf_group]
-      amazon_pdf.pdf.attach(amazon_pdf_params[:pdf])
+      apply_document_source(amazon_pdf, amazon_pdf_params)
       amazon_pdf.program = Program.find(amazon_pdf_params[:program_id]) if amazon_pdf_params[:program_id].present?
       amazon_pdf.director = current_director
       amazon_pdf.event_date = amazon_pdf_params[:event_date] if amazon_pdf_params[:event_date].present?
@@ -84,6 +89,18 @@ class AmazonPdfsController < ApplicationController
   end
 
   private
+
+  def apply_document_source(amazon_pdf, params)
+    if params[:source_mode] == 'link'
+      amazon_pdf.document_url = params[:document_url].presence
+      return
+    end
+
+    amazon_pdf.document_url = nil
+    return unless params[:pdf].present?
+
+    amazon_pdf.pdf.attach(params[:pdf])
+  end
 
   def parse_datetime(date)
     DateTime.strptime(date, '%m/%d/%Y %I:%M %p')

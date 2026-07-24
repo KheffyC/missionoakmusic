@@ -10,6 +10,7 @@
 #  updated_at        :datetime         not null
 #  director_id       :bigint
 #  program_id        :bigint
+#  document_url      :string
 #
 # Indexes
 #
@@ -29,8 +30,9 @@ class AmazonPdf < ApplicationRecord
   belongs_to :music_sheet, optional: true
 
   validates :name, presence: { message: 'Please enter a name for the PDF' }
-  validates :pdf, presence: true
   validates :type_of_pdf_group, presence: true
+  validates :document_url, format: { with: URI::DEFAULT_PARSER.make_regexp(%w[http https]), message: 'must be a valid URL' }, allow_blank: true
+  validate :document_source_present
 
   scope :library_documents, -> { where.not(type_of_pdf_group: 'Student Forms') }
   scope :student_forms, -> { where(type_of_pdf_group: 'Student Forms') }
@@ -40,6 +42,18 @@ class AmazonPdf < ApplicationRecord
   end
 
   def url
-    Rails.application.routes.url_helpers.rails_blob_url(pdf, only_path: true) if pdf.attached?
+    document_url.presence || (Rails.application.routes.url_helpers.rails_blob_url(pdf, only_path: true) if pdf.attached?)
+  end
+
+  def linked_document?
+    document_url.present?
+  end
+
+  private
+
+  def document_source_present
+    return if document_url.present? || pdf.attached?
+
+    errors.add(:base, 'Please upload a PDF or provide a document URL.')
   end
 end
