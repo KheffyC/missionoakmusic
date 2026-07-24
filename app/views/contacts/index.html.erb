@@ -14,14 +14,15 @@
             <h3 class="mb-2 text-lg font-bold">Director of Instrumental Music</h3>
             <p class="text-slate-100"><%= @school&.director_name.presence || 'Test Director' %></p>
             <p class="text-slate-200"><%= @school&.director_phone.presence || '(559) xxx-xxxx' %></p>
-            <p class="mt-1 text-slate-200 break-all"><%= @school&.director_email.presence || 'director@test.com' %></p>
+            <% director_email = @school&.director_email.presence || 'director@test.com' %>
+            <p class="mt-1 text-slate-200 break-all"><%= mail_to director_email, director_email, class: 'underline decoration-slate-300/70 underline-offset-2 transition hover:text-white' %></p>
           </div>
         </article>
 
         <article class="flex h-full flex-col justify-between rounded-2xl border border-violet-300/30 bg-gradient-to-br from-violet-500/15 via-slate-900/80 to-slate-950/90 p-6 text-white shadow-xl shadow-violet-500/20 ring-1 ring-violet-200/20 backdrop-blur-sm">
           <div class="space-y-1.5">
             <h3 class="mb-2 text-lg font-bold">Booster Questions</h3>
-            <p class="text-slate-100 break-all">mohsbandpres@gmail.com</p>
+            <p class="text-slate-100 break-all"><%= mail_to 'mohsbandpres@gmail.com', 'mohsbandpres@gmail.com', class: 'underline decoration-slate-300/70 underline-offset-2 transition hover:text-white' %></p>
           </div>
         </article>
       </div>
