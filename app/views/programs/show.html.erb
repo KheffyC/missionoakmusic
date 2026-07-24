@@ -37,7 +37,7 @@
       </article>
 
       <article class="group relative overflow-hidden bg-black shadow-[0_14px_30px_rgba(0,0,0,0.35)]">
-        <div class="h-full min-h-[320px] w-full overflow-hidden sm:min-h-[420px]">
+        <div class="h-80 w-full overflow-hidden sm:h-[420px] lg:h-[460px]">
           <% program_image = @program.about_image_url.to_s.strip.presence || @program.main_gallery_image_url.to_s.strip.presence || @school.default_image.to_s.strip.presence || 'default-hero.jpg' %>
           <%= image_tag(
             resolve_image_src(program_image),

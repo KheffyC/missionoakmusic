@@ -16,7 +16,7 @@
         <article class="flex flex-col overflow-hidden border border-purple-300/60 bg-purple-100 shadow-[0_12px_24px_rgba(88,28,135,0.18)] transition duration-300 hover:shadow-[0_18px_34px_rgba(88,28,135,0.26)] sm:flex-row">
 
           <%# Image — alternate side on desktop for visual rhythm %>
-          <div class="relative h-56 w-full shrink-0 overflow-hidden sm:h-auto sm:w-64 lg:w-80 <%= i.odd? ? 'sm:order-last' : '' %>">
+          <div class="relative h-56 w-full shrink-0 overflow-hidden sm:h-64 sm:w-64 lg:h-72 lg:w-80 <%= i.odd? ? 'sm:order-last' : '' %>">
             <%= image_tag(
               resolve_image_src(
                 program.main_gallery_image_url&.strip.presence,
