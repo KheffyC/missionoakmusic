@@ -17,6 +17,7 @@ class SchoolDashboard < Administrate::BaseDashboard
     percussion_director_phone: Field::String,
     percussion_director_email: Field::String,
     default_image: Field::String,
+    about_hero_image: Field::String,
     performance_absence_form: Field::String,
     rehearsal_absence_form: Field::String,
     handbook_contract_form: Field::String,
@@ -68,6 +69,7 @@ class SchoolDashboard < Administrate::BaseDashboard
     hero_title
     home_page_image_urls
     default_image
+    about_hero_image
     call_to_action
     contact_us
     programs
@@ -99,6 +101,7 @@ class SchoolDashboard < Administrate::BaseDashboard
     about
     hero_title
     default_image
+    about_hero_image
     home_page_image_urls
     call_to_action
     contact_us

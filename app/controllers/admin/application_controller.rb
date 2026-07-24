@@ -7,6 +7,7 @@
 module Admin
   class ApplicationController < Administrate::ApplicationController
     before_action :authenticate_director!
+    helper ApplicationHelper
     helper_method :donations_enabled?, :stripe_pricing_table_ready?, :stripe_buy_button_ready?
     
     # Use custom admin layout with modern design

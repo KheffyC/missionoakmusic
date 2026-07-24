@@ -1,11 +1,13 @@
 <%
-  hero_image = if local_assigns[:program]
+  hero_image_override = local_assigns[:hero_image_override].to_s.strip.presence
+
+  hero_image = hero_image_override || if local_assigns[:program]
     @program.main_gallery_image_url.presence || @program.about_image_url.presence || @school.default_image
   else
     @school.default_image.presence || @school.home_page_image_urls.to_s.split(',').first
   end
 
-  hero_image = image_path(hero_image) if hero_image.present? && hero_image !~ %r{\Ahttps?://}
+  hero_image = resolve_image_src(hero_image)
 %>
 
 <section
