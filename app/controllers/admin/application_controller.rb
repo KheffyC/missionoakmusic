@@ -7,6 +7,7 @@
 module Admin
   class ApplicationController < Administrate::ApplicationController
     before_action :authenticate_director!
+    before_action :set_school
     helper ApplicationHelper
     helper_method :donations_enabled?, :stripe_pricing_table_ready?, :stripe_buy_button_ready?
     
@@ -55,6 +56,10 @@ module Admin
       return false if cleaned.empty?
 
       !cleaned.match?(/\A(change|replace|your|todo|tbd|example|placeholder|dummy)[-_ ]?/i)
+    end
+
+    def set_school
+      @school = School.first
     end
   end
 end

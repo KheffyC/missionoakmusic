@@ -1,5 +1,7 @@
 module Admin
   class GalleriesController < Admin::ApplicationController
+    before_action :require_galleries_enabled!
+
     def upload_image
       Gallery.find(params[:id])
 
@@ -76,5 +78,11 @@ module Admin
 
     # See https://administrate-demo.herokuapp.com/customizing_controller_actions
     # for more information
+
+    private
+
+    def require_galleries_enabled!
+      redirect_to admin_root_path, alert: "Photo gallery feature is not enabled." unless @school&.photo_gallery_enabled?
+    end
   end
 end

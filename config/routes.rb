@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     resources :programs
     resources :schools
     resources :districts
+    resources :staff_members
     resources :boosters
     resources :fundraisers
     resources :galleries do
@@ -21,9 +22,6 @@ Rails.application.routes.draw do
 
     root to: "schools#index"
   end
-
-  # Program Routes for each program at each school
-  resources :programs
 
   # School routes for each school
   resources :schools
@@ -35,12 +33,11 @@ Rails.application.routes.draw do
   resources :galleries
 
   resources :fundraisers
+  resources :staff_members, only: [:index]
+  resources :boosters, only: [:index]
   resources :donations do
     get :payment_confirmation, on: :collection, path: '/payment_confirmation/:id'
   end
-
-  # Booster routes for each booster
-  # resources :boosters
 
   # Contact routes for each contact
   resources :contacts
