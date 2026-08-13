@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :directors, skip: [:registrations]
+  devise_for :directors
 
   #  Home Page Route
   get 'home/index'
