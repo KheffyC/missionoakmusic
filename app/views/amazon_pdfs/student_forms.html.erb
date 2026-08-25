@@ -1,8 +1,6 @@
 <div class="min-h-[90vh] px-4 py-8 md:py-12">
   <div class="mx-auto w-full max-w-6xl space-y-10">
     <div class="space-y-4">
-      <h1 class="text-center text-3xl md:text-4xl font-extrabold tracking-tight text-white">Student Forms</h1>
-
       <% if current_director.present? %>
         <div class="flex justify-center pt-2">
           <%= link_to 'Upload New PDF', new_amazon_pdf_path, class: 'inline-flex items-center justify-center rounded-lg border border-white bg-purple-700 px-6 py-3 text-base font-semibold text-white shadow-lg shadow-purple-900/20 transition hover:border-emerald-600 hover:bg-emerald-600 hover:text-white' %>
