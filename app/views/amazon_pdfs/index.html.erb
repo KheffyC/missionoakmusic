@@ -6,7 +6,7 @@
           <span class="inline-flex rounded-full border border-purple-300 bg-purple-50 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-purple-700">PDF Library</span>
           <h1 class="mt-4 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl">Live Documents and Program Info</h1>
           <p class="mt-4 max-w-2xl text-base leading-relaxed text-gray-700 sm:text-lg">
-            This page is the main source for schedules, itineraries, syllabus updates, and the latest event information students need as the season changes.
+            This page is the main source for schedules, itineraries, and the latest event information students need as the season changes.
           </p>
         </div>
 
@@ -121,7 +121,7 @@
           <% if @selected_group.present? || @selected_program.present? %>
             There are no documents for this filter yet. Try another category, switch programs, or upload a new file if you are a director.
           <% else %>
-            This is where families and students will find the latest schedules, itineraries, and syllabuses.
+            This is where families and students will find the latest schedules, itineraries.
           <% end %>
         </p>
         <% if current_director.present? %>

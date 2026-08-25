@@ -7,7 +7,7 @@ class AmazonPdfsController < ApplicationController
     @selected_program_id = params[:program_id].presence
     @selected_program = @programs.find_by(id: @selected_program_id)
     @amazon_pdfs = AmazonPdf.library_documents.includes(:program).order(type_of_pdf_group: :desc)
-    group_order = ['Itinerary','Schedules', 'Syllabus']
+    group_order = ['Itinerary','Schedules']
     @selected_group = params[:group].presence
 
     if @selected_group.present?
