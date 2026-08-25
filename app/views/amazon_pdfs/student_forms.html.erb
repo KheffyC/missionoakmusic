@@ -12,9 +12,9 @@
       <% @amazon_pdfs.group_by { |g| g.type_of_pdf_group }.each do |group, pdfs| %>
         <section class="space-y-5 rounded-3xl border border-white/10 bg-slate-950/35 p-4 md:p-6">
           <h2 class="text-center text-2xl md:text-3xl font-bold tracking-tight text-white"><%= group.to_s.upcase %></h2>
-          <div class="grid grid-cols-1 gap-5 lg:grid-cols-2">
+          <div class="grid grid-cols-1 gap-5 <%= pdfs.one? ? 'lg:grid-cols-1' : 'lg:grid-cols-2' %>">
             <% pdfs.each do |pdf| %>
-              <article class="rounded-2xl border border-white/45 bg-gradient-to-br from-white/20 via-slate-900/85 to-slate-950/90 p-5 md:p-6 text-white shadow-xl shadow-white/25 ring-1 ring-white/20 backdrop-blur-sm">
+              <article class="<%= pdfs.one? ? 'mx-auto w-full max-w-2xl' : '' %> rounded-2xl border border-white/45 bg-gradient-to-br from-white/20 via-slate-900/85 to-slate-950/90 p-5 md:p-6 text-white shadow-xl shadow-white/25 ring-1 ring-white/20 backdrop-blur-sm">
                 <div class="space-y-3">
                   <h3 class="text-xl md:text-2xl font-bold"><%= pdf.name %></h3>
                   <div>
