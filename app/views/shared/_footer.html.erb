@@ -31,7 +31,9 @@
           <% if donations_enabled? %>
             <%= link_to 'Donate', donations_path, class: 'inline-flex items-center justify-center rounded-md bg-purple-700 px-4 py-2 text-sm font-semibold text-white transition hover:bg-purple-600' %>
           <% end %>
+          <% if fundraisers_enabled? %>
           <%= link_to 'Fundraisers', fundraisers_path, class: 'inline-flex items-center justify-center rounded-md border border-white/30 px-4 py-2 text-sm font-semibold text-white transition hover:border-white/60 hover:bg-white/10' %>
+          <% end %>
           <% if current_director.present? %>
             <%= link_to 'Go to Admin Dashboard', admin_root_path, class: 'inline-flex items-center justify-center rounded-md border border-white/30 px-4 py-2 text-sm font-semibold text-white transition hover:border-white/60 hover:bg-white/10' %>
           <% else %>
