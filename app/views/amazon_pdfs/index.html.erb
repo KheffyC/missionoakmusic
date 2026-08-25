@@ -13,7 +13,7 @@
         <div class="grid gap-3 sm:grid-cols-2 lg:min-w-[360px] lg:grid-cols-1">
           <%= link_to 'Student Forms', student_forms_amazon_pdfs_path, class: 'inline-flex items-center justify-center rounded-xl border border-white bg-purple-700 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-purple-200 hover:text-purple-700 hover:border-purple-700' %>
           <% if current_director.present? %>
-            <%= link_to 'Upload New PDF', new_amazon_pdf_path, class: 'inline-flex items-center justify-center rounded-xl border border-purple-600 bg-white px-5 py-3 text-sm font-semibold text-purple-700 shadow-sm transition hover:border-emerald-600 hover:bg-emerald-600 hover:text-white' %>
+            <%= link_to 'Upload New PDF / Google Doc', new_amazon_pdf_path, class: 'inline-flex items-center justify-center rounded-xl border border-purple-600 bg-white px-5 py-3 text-sm font-semibold text-purple-700 shadow-sm transition hover:border-emerald-600 hover:bg-emerald-600 hover:text-white' %>
           <% end %>
         </div>
       </div>

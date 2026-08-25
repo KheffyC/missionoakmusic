@@ -16,6 +16,7 @@
 			<% end %>
 			<li class="px-4"><%= link_to 'Class Schedule', home_about_path, class: "text-base text-white hover:text-gray-500 lg:text-xl" %></li>
 			<li class="px-4"><%= link_to 'Documents', amazon_pdfs_path, class: "text-base text-white hover:text-gray-500 lg:text-xl" %></li>
+			<li class="px-4"><%= link_to 'Student Forms', student_forms_amazon_pdfs_path, class: "text-base text-white hover:text-gray-500 lg:text-xl" %></li>
 			<% if @school&.photo_gallery_enabled? %>
 				<li class="px-4"><%= link_to 'Photos', galleries_path, class: "text-base text-white hover:text-gray-500 lg:text-xl" %></li>
 			<% end %>
@@ -45,6 +46,7 @@
 					<% end %>
 					<li class="mb-1"><%= link_to 'Class Schedule', home_about_path, class: "block p-4 text-sm font-semibold text-gray-100 hover:bg-purple-500 hover:text-black rounded" %></li>
 					<li class="mb-1"><%= link_to 'Documents', amazon_pdfs_path, class: "block p-4 text-sm font-semibold text-gray-100 hover:bg-purple-500 hover:text-black rounded" %></li>
+					<li class="mb-1"><%= link_to 'Student Forms', student_forms_amazon_pdfs_path, class: "block p-4 text-sm font-semibold text-gray-100 hover:bg-purple-500 hover:text-black rounded" %></li>
 					<% if @school&.photo_gallery_enabled? %>
 						<li class="mb-1"><%= link_to 'Photos', galleries_path, class: "block p-4 text-sm font-semibold text-gray-100 hover:bg-purple-500 hover:text-black rounded" %></li>
 					<% end %>
